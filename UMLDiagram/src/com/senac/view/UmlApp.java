@@ -33,8 +33,8 @@ public class UmlApp extends JFrame {
     JToggleButton buttonAtor, buttonCirculo, buttonQuadrado, buttonTexto, buttonSelecionar, buttonRelacionamento;
     TelaDesenho desenho;
     ButtonGroup bt;
-    private int posX, posY,posX2, posY2;
-    
+    private int posX, posY, posX2, posY2;
+
     public static void main(String[] args) {
         UmlApp u = new UmlApp();
         u.initComponents();
@@ -44,7 +44,7 @@ public class UmlApp extends JFrame {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            System.out.println("Erro ao iniciar LookAndFeel\n"+ex.getMessage());
+            System.out.println("Erro ao iniciar LookAndFeel\n" + ex.getMessage());
         }
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("UML Java - 1.0");
@@ -100,7 +100,7 @@ public class UmlApp extends JFrame {
                     Circulo c = new Circulo(me.getX(), me.getY(), 80);
                     try {
                         String texto = JOptionPane.showInputDialog("Caso de uso:");
-                        Texto t = new Texto(me.getX()+5, me.getY()+40, texto);
+                        Texto t = new Texto(me.getX() + 5, me.getY() + 40, texto);
                         desenho.addFigura(t);
                     } catch (NullPointerException e) {
                         JOptionPane.showMessageDialog(null, "Texto não foi inserido.");
@@ -108,6 +108,13 @@ public class UmlApp extends JFrame {
                     desenho.addFigura(c);
                 } else if (buttonQuadrado.isSelected()) {
                     Quadrado q = new Quadrado(me.getX(), me.getY(), 80);
+                    try {
+                        String texto = JOptionPane.showInputDialog("Comentário:");
+                        Texto t = new Texto(me.getX() + 5, me.getY() + 40, texto);
+                        desenho.addFigura(t);
+                    } catch (NullPointerException e) {
+                        JOptionPane.showMessageDialog(null, "Texto não foi inserido.");
+                    }
                     desenho.addFigura(q);
                 } else if (buttonTexto.isSelected()) {
                     try {
@@ -117,10 +124,10 @@ public class UmlApp extends JFrame {
                     } catch (NullPointerException e) {
                         JOptionPane.showMessageDialog(null, "Texto não foi inserido.");
                     }
-                }else if (buttonRelacionamento.isSelected()){
+                } else if (buttonRelacionamento.isSelected()) {
                     posX = me.getX();
                     posY = me.getY();
-                } else if(buttonSelecionar.isSelected()){
+                } else if (buttonSelecionar.isSelected()) {
                     desenho.verificaSelecao(me.getX(), me.getY());
                 }
                 desenho.repaint();
@@ -130,7 +137,7 @@ public class UmlApp extends JFrame {
         desenho.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(buttonRelacionamento.isSelected()){
+                if (buttonRelacionamento.isSelected()) {
                     posX2 = e.getX();
                     posY2 = e.getY();
                     Linha l = new Linha(posX, posY, posX2, posY2);
